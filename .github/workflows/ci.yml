@@ -11,7 +11,7 @@ on:
 jobs:
   build-demo:
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         rust-target:
           [aarch64-apple-darwin, x86_64-apple-darwin, x86_64-apple-ios-macabi]
