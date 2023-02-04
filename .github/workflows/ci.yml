@@ -28,7 +28,7 @@ jobs:
       - shell: bash
         name: print rust nightly environment
         run: |
-          rustc --version
+          rustc --version --verbose
 
       - shell: bash
         name: ls ~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/
