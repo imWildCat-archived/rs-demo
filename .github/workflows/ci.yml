@@ -9,7 +9,12 @@ on:
       - main
 
 jobs:
-  check:
+  build-demo:
+    strategy:
+      fail-fast: true
+      matrix:
+        rust-target:
+          [aarch64-apple-darwin, x86_64-apple-darwin, x86_64-apple-ios-macabi]
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,15 +24,13 @@ jobs:
           rustup update
           rustup toolchain install nightly
           rustup component add rust-src --toolchain nightly
+
       - shell: bash
-        name: build default debug (aarch64-apple-darwin) using nightly
+        name: ls ~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/
         run: |
-          cargo +nightly build -Z build-std --target aarch64-apple-darwin
-      - shell: bash
-        name: build default debug (x86_64-apple-darwin) using nightly
-        run: |
-          cargo +nightly build -Z build-std --target x86_64-apple-darwin
+          ls -l ~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/
+
       - shell: bash
         name: build default debug (x86_64-apple-ios-macabi) using nightly
         run: |
-          cargo +nightly build -Z build-std  --target x86_64-apple-ios-macabi
+          cargo +nightly build -Z build-std --target ${{ matrix.rust-target }}
