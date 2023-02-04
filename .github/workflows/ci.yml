@@ -26,6 +26,11 @@ jobs:
           rustup component add rust-src --toolchain nightly
 
       - shell: bash
+        name: print rust nightly environment
+        run: |
+          rustc --version
+
+      - shell: bash
         name: ls ~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/
         run: |
           ls -l ~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/
@@ -33,4 +38,4 @@ jobs:
       - shell: bash
         name: build default debug (x86_64-apple-ios-macabi) using nightly
         run: |
-          cargo +nightly build --verbose -Z build-std --target ${{ matrix.rust-target }}
+          RUST_BACKTRACE=1 cargo +nightly build --verbose -Z build-std --target ${{ matrix.rust-target }}
