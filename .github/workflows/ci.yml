@@ -33,4 +33,4 @@ jobs:
       - shell: bash
         name: build default debug (x86_64-apple-ios-macabi) using nightly
         run: |
-          cargo +nightly build -Z build-std --target ${{ matrix.rust-target }}
+          cargo +nightly build --verbose -Z build-std --target ${{ matrix.rust-target }}
