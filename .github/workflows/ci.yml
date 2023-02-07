@@ -39,3 +39,9 @@ jobs:
         name: build default debug (x86_64-apple-ios-macabi) using nightly
         run: |
           RUST_BACKTRACE=1 cargo +nightly build --verbose -Z build-std --target ${{ matrix.rust-target }}
+
+      - uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: rust-target-dir-${{ matrix.rust-target }}
+          path: /Users/runner/work/rs-demo/rs-demo/target
